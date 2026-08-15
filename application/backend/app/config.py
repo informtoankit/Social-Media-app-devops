@@ -1,3 +1,4 @@
+
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
@@ -8,7 +9,9 @@ class Settings(BaseSettings):
 
     aws_region: str = "ap-south-1"
     s3_bucket: str = "instaclone-dev-images"
-    s3_endpoint_url: str | None = None  # set for MinIO in local dev
+    s3_endpoint_url: str | None = None
+    aws_access_key_id: str = "minioadmin"
+    aws_secret_access_key: str = "minioadmin"
 
     class Config:
         env_file = ".env"

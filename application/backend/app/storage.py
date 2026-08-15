@@ -5,7 +5,9 @@ def get_s3_client():
     return boto3.client(
         "s3",
         region_name=settings.aws_region,
-        endpoint_url=settings.s3_endpoint_url,  # None in AWS, set for local MinIO
+        endpoint_url=settings.s3_endpoint_url,
+        aws_access_key_id=settings.aws_access_key_id,
+        aws_secret_access_key=settings.aws_secret_access_key,
     )
 
 def generate_presigned_upload_url(key: str, content_type: str) -> str:

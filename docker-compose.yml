@@ -1,3 +1,4 @@
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -36,6 +37,8 @@ services:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/instaclone
       S3_ENDPOINT_URL: http://minio:9000
       JWT_SECRET: local-dev-secret
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
     depends_on:
       postgres:
         condition: service_healthy
