@@ -1,0 +1,9 @@
+aws_region          = "ap-south-1"
+environment         = "qa"
+project_name        = "instaclone-qa"
+vpc_cidr            = "10.1.0.0/16"
+availability_zones  = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+nat_gateway_count   = 3
+enable_flow_logs    = true
+node_instance_type  = "t3.medium"
+node_count          = 2
