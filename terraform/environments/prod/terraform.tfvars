@@ -7,3 +7,5 @@ nat_gateway_count   = 3
 enable_flow_logs    = true
 node_instance_type  = "t3.large"
 node_count          = 3
+db_instance_class = "db.t3.medium"
+rds_multi_az       = true
