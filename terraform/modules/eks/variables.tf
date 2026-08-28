@@ -13,7 +13,7 @@ variable "public_subnet_ids" {
 variable "kubernetes_version" {
   description = "Kubernetes version for the EKS cluster"
   type        = string
-  default = "1.30"
+  default = "1.31"
 }
 
 variable "node_instance_type" {
