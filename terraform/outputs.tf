@@ -25,3 +25,19 @@ output "rds_security_group_id" {
 output "nat_gateway_ips" {
   value = module.networking.nat_gateway_ips
 }
+output "s3_bucket_name" {
+  value = module.s3.bucket_name
+}
+
+output "s3_bucket_arn" {
+  value = module.s3.bucket_arn
+}
+
+
+output "eks_cluster_endpoint" {
+  value = module.eks.cluster_endpoint
+}
+
+output "eks_cluster_name" {
+  value = module.eks.cluster_name
+}

@@ -24,9 +24,8 @@ RUN chown -R appuser:appgroup /usr/share/nginx/html \
     /etc/nginx/conf.d
 RUN touch /var/run/nginx.pid && chown appuser:appgroup /var/run/nginx.pid
 
-USER appuser
-
-EXPOSE 80
+# USER appuser
+EXPOSE 8080
 
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
     CMD wget --spider -q http://localhost:80 || exit 1
