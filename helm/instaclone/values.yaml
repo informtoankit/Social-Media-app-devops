@@ -1,0 +1,40 @@
+namespace: instaclone
+
+backend:
+  replicas: 2
+  image:
+    repository: 347204346665.dkr.ecr.ap-south-1.amazonaws.com/instaclone-backend
+    tag: latest
+  port: 8000
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+
+frontend:
+  replicas: 2
+  image:
+    repository: 347204346665.dkr.ecr.ap-south-1.amazonaws.com/instaclone-frontend
+    tag: latest
+  port: 8080
+  servicePort: 80
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "200m"
+      memory: "128Mi"
+
+config:
+  awsRegion: "ap-south-1"
+  s3Bucket: "instaclone-images-dev"
+  jwtAlgorithm: "HS256"
+  jwtExpireMinutes: "60"
+
+ingress:
+  enabled: true
+  className: alb

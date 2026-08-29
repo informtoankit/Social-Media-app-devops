@@ -1,0 +1,8 @@
+backend:
+  replicas: 2
+
+frontend:
+  replicas: 2
+
+config:
+  s3Bucket: "instaclone-images-dev"
