@@ -35,7 +35,7 @@ jobs:
 
       - name: Run tests
         working-directory: application/backend
-        run: pytest tests/ -v
+        run: PYTHONPATH=. pytest tests/ -v
 
   build-and-push:
     name: Build and Push to ECR
