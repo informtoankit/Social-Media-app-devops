@@ -1,0 +1,15 @@
+backend:
+  replicas: 5
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
+    limits:
+      cpu: "1000m"
+      memory: "512Mi"
+
+frontend:
+  replicas: 3
+
+config:
+  s3Bucket: "instaclone-images-prod"

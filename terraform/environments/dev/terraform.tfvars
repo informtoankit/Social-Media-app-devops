@@ -1,0 +1,11 @@
+aws_region          = "ap-south-1"
+environment         = "dev"
+project_name        = "instaclone-dev"
+vpc_cidr            = "10.0.0.0/16"
+availability_zones  = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+nat_gateway_count   = 3
+enable_flow_logs    = true
+node_instance_type  = "t3.small"
+node_count          = 1
+db_instance_class = "db.t3.micro"
+rds_multi_az       = false

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: instaclone
+  labels:
+    app: instaclone
+
+

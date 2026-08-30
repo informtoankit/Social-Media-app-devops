@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: instaclone
+data:
+  AWS_REGION: "ap-south-1"
+  S3_BUCKET: "instaclone-images-dev"
+  JWT_ALGORITHM: "HS256"
+  JWT_EXPI/RE_MINUTES: "60"
