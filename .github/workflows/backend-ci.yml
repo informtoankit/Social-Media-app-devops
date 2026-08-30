@@ -5,10 +5,13 @@ on:
     branches: [main]
     paths:
       - 'application/backend/**'
+      - '.github/workflows/backend-ci.yml'
   pull_request:
     branches: [main]
     paths:
       - 'application/backend/**'
+      - '.github/workflows/backend-ci.yml'
+  workflow_dispatch:
 
 env:
   AWS_REGION: ap-south-1
