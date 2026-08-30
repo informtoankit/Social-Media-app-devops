@@ -33,3 +33,4 @@ Thumbs.db
 # Logs
 *.log
 kubernetes/base/backend/secret.yaml
+iam_policy.json
