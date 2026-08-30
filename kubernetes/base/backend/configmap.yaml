@@ -7,4 +7,4 @@ data:
   AWS_REGION: "ap-south-1"
   S3_BUCKET: "instaclone-images-dev"
   JWT_ALGORITHM: "HS256"
-  JWT_EXPIRE_MINUTES: "60"
+  JWT_EXPI/RE_MINUTES: "60"
