@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from app.database import get_db
 from app import models, schemas
 from app.config import settings
@@ -27,7 +27,7 @@ def login(credentials: schemas.LoginRequest, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == credentials.email).first()
     if not user or not pwd_context.verify(credentials.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    expire = datetime.utcnow() + timedelta(minutes=settings.jwt_expire_minutes)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=settings.jwt_expire_minutes)
     token = jwt.encode(
         {"sub": str(user.id), "exp": expire},
         settings.jwt_secret,

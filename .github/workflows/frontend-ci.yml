@@ -1,3 +1,4 @@
+
 name: Frontend CI
 
 on:
@@ -5,10 +6,13 @@ on:
     branches: [main]
     paths:
       - 'application/frontend/**'
+      - '.github/workflows/frontend-ci.yml'
   pull_request:
     branches: [main]
     paths:
       - 'application/frontend/**'
+      - '.github/workflows/frontend-ci.yml'
+  workflow_dispatch:
 
 env:
   AWS_REGION: ap-south-1
@@ -38,7 +42,7 @@ jobs:
         run: npm run build
 
   build-and-push:
-    name: Build and Push to ECR
+    name: Build, Scan, and Push to ECR
     needs: build-test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -57,13 +61,27 @@ jobs:
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build, tag, and push image
+      - name: Build image
         working-directory: application/frontend
         env:
           ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}'
+          format: 'table'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '0'
+
+      - name: Push image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
