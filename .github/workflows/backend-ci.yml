@@ -96,3 +96,14 @@ jobs:
         run: |
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Update GitOps repo with new image tag
+        run: |
+          git clone https://x-access-token:${{ secrets.GITOPS_REPO_TOKEN }}@github.com/informtoankit/instaclone-gitops.git
+          cd instaclone-gitops
+          sed -i "s/tag: .*/tag: \"${{ github.sha }}\"/" helm/instaclone/values-dev.yaml
+          git config user.name "CI Bot"
+          git config user.email "ci-bot@instaclone.com"
+          git add .
+          git commit -m "chore: update backend image to ${{ github.sha }}"
+          git push
