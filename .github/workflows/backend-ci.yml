@@ -101,7 +101,7 @@ jobs:
         run: |
           git clone https://x-access-token:${{ secrets.GITOPS_REPO_TOKEN }}@github.com/informtoankit/instaclone-gitops.git
           cd instaclone-gitops
-          sed -i "s/tag: .*/tag: \"${{ github.sha }}\"/" helm/instaclone/values-dev.yaml
+          sed -i "/backend:/,/frontend:/ s/tag: .*/tag: \"${{ github.sha }}\"/" helm/instaclone/values-dev.yaml
           git config user.name "CI Bot"
           git config user.email "ci-bot@instaclone.com"
           git add .
